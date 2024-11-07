@@ -13,7 +13,8 @@ terraform {
 
 provider "azurerm" {
   # Configuration options
-  # subscription_id = ...
+  subscription_id = var.azure_subscription_id
+  features {}
 }
 
 provider "random" {
