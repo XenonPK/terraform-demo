@@ -6,7 +6,7 @@ resource "random_string" "terraform-state-identifier" {
 
 resource "azurerm_resource_group" "terraform-state-rg" {
   name     = "terraform-state-${random_string.terraform-state-identifier.result}"
-  location = "West Europe"
+  location = var.location
 
   tags = {
     environment = "${var.environment}"
