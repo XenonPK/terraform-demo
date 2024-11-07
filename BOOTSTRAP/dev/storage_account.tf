@@ -17,7 +17,9 @@ resource "azurerm_resource_group" "terraform-state-rg" {
 }
 
 resource "azurerm_storage_account" "terraform-state-sa" {
-  name                     = lower("${var.environment}${random_string.terraform-state-identifier.result}tfstate")
+  # The lower() function ensures we are compliant with the storage account restrictions
+  # The substr function ensures we are compliant with the maximum size of the storage account name
+  name                     = substr(lower("${var.environment}${random_string.terraform-state-identifier.result}tfstate"),0,23)
   resource_group_name      = azurerm_resource_group.terraform-state-rg.name
   location                 = azurerm_resource_group.terraform-state-rg.location
   account_tier             = "Standard"
