@@ -11,9 +11,9 @@ variable "environment" {
 }
 
 variable "azure_location" {
-  type = string
+  type        = string
   description = "The azure location where the resources will be created."
-  default = "France Central"
+  default     = "France Central"
 }
 
 variable "azure_subscription_id" {

@@ -2,8 +2,8 @@ resource "random_string" "terraform-state-identifier" {
   length  = 4
   special = false
   numeric = false
-  lower = true
-  upper = false
+  lower   = true
+  upper   = false
 }
 
 resource "azurerm_resource_group" "terraform-state-rg" {
@@ -12,13 +12,13 @@ resource "azurerm_resource_group" "terraform-state-rg" {
 
   tags = {
     environment = "${var.environment}"
-    terraform = true
+    terraform   = true
   }
 }
 
 
 locals {
-  storage_account_name = substr(lower("${var.environment}${random_string.terraform-state-identifier.result}tfstate"),0,23)
+  storage_account_name = substr(lower("${var.environment}${random_string.terraform-state-identifier.result}tfstate"), 0, 23)
 
 }
 
@@ -33,14 +33,14 @@ resource "azurerm_storage_account" "terraform-state-sa" {
 
   tags = {
     environment = "${var.environment}"
-    terraform = true
+    terraform   = true
   }
 
   lifecycle {
     # This allows us to ignore changes
     #ignore_changes = [tags]
     precondition {
-      condition = length(local.storage_account_name) < 23
+      condition     = length(local.storage_account_name) < 23
       error_message = "The storage account name is too long (${length(local.storage_account_name)}), it will cause issues with the subscription_name"
     }
   }
