@@ -16,10 +16,16 @@ resource "azurerm_resource_group" "terraform-state-rg" {
   }
 }
 
+
+locals {
+  storage_account_name = substr(lower("${var.environment}${random_string.terraform-state-identifier.result}tfstate"),0,23)
+
+}
+
 resource "azurerm_storage_account" "terraform-state-sa" {
   # The lower() function ensures we are compliant with the storage account restrictions
   # The substr function ensures we are compliant with the maximum size of the storage account name
-  name                     = substr(lower("${var.environment}${random_string.terraform-state-identifier.result}tfstate"),0,23)
+  name                     = local.storage_account_name
   resource_group_name      = azurerm_resource_group.terraform-state-rg.name
   location                 = azurerm_resource_group.terraform-state-rg.location
   account_tier             = "Standard"
@@ -28,6 +34,15 @@ resource "azurerm_storage_account" "terraform-state-sa" {
   tags = {
     environment = "${var.environment}"
     terraform = true
+  }
+
+  lifecycle {
+    # This allows us to ignore changes
+    #ignore_changes = [tags]
+    precondition {
+      condition = length(local.storage_account_name) < 23
+      error_message = "The storage account name is too long (${length(local.storage_account_name)}), it will cause issues with the subscription_name"
+    }
   }
 }
 
