@@ -1,6 +1,3 @@
-# BOOTSTRAP folder for our DEV environment
-
-This folder contains the necessary code to create a storage account, that will be used to hold the terraform state files.
 ## Requirements
 
 | Name | Version |
@@ -32,10 +29,10 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_azure_location"></a> [azure\_location](#input\_azure\_location) | The azure location where the resources will be created. | `string` | `"France Central"` | no |
+| <a name="input_azure_subscription_id"></a> [azure\_subscription\_id](#input\_azure\_subscription\_id) | This is the id of the Azure subscription where we want to create the resources | `string` | n/a | yes |
 | <a name="input_environment"></a> [environment](#input\_environment) | This variable sets the environment for all resources | `string` | `"dev"` | no |
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_tfstate_backend_configuration_prd"></a> [tfstate\_backend\_configuration\_prd](#output\_tfstate\_backend\_configuration\_prd) | The name of the resource group that contains the tfstate storage account that corresponds to the prod environment. |
+No outputs.

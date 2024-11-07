@@ -2,12 +2,6 @@ variable "environment" {
   type        = string
   description = "This variable sets the environment for all resources"
   default     = "dev"
-
-  #  validation {
-  #    condition = length(var.environment) < 5
-  #    error_message = "The environment variable is too long, it will cause issues with the subscription_name"
-  #  }
-
 }
 
 variable "azure_location" {
