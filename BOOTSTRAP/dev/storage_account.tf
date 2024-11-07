@@ -12,6 +12,7 @@ resource "azurerm_resource_group" "terraform-state-rg" {
 
   tags = {
     environment = "${var.environment}"
+    terraform = true
   }
 }
 
@@ -24,6 +25,7 @@ resource "azurerm_storage_account" "terraform-state-sa" {
 
   tags = {
     environment = "${var.environment}"
+    terraform = true
   }
 }
 
