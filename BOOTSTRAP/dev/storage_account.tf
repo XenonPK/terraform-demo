@@ -2,11 +2,13 @@ resource "random_string" "terraform-state-identifier" {
   length  = 4
   special = false
   numeric = false
+  lower = true
+  upper = false
 }
 
 resource "azurerm_resource_group" "terraform-state-rg" {
   name     = "terraform-state-${random_string.terraform-state-identifier.result}"
-  location = var.location
+  location = var.azure_location
 
   tags = {
     environment = "${var.environment}"
@@ -14,7 +16,7 @@ resource "azurerm_resource_group" "terraform-state-rg" {
 }
 
 resource "azurerm_storage_account" "terraform-state-sa" {
-  name                     = "${var.environment}-${random_string.terraform-state-identifier.result}-tfstate"
+  name                     = lower("${var.environment}${random_string.terraform-state-identifier.result}tfstate")
   resource_group_name      = azurerm_resource_group.terraform-state-rg.name
   location                 = azurerm_resource_group.terraform-state-rg.location
   account_tier             = "Standard"
