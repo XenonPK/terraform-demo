@@ -39,3 +39,9 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_tfstate_backend_configuration_prd"></a> [tfstate\_backend\_configuration\_prd](#output\_tfstate\_backend\_configuration\_prd) | The name of the resource group that contains the tfstate storage account that corresponds to the prod environment. |
+
+
+
+
+# Example content of terraform.tfvars:
+azure_subscription_id = "subscription_id"
