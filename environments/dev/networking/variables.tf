@@ -14,3 +14,9 @@ variable "azure_subscription_id" {
   type        = string
   description = "This is the id of the Azure subscription where we want to create the resources"
 }
+
+variable "vnet_address_space" {
+  type        = list(string)
+  description = "The address space to use for the vnet"
+  default     = ["172.16.20.0/22"]
+}

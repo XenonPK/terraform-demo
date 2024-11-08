@@ -6,7 +6,7 @@ module "avm-res-network-virtualnetwork" {
   name                = "${var.environment}-vnet-${random_string.networking-identifier.result}"
   location            = azurerm_resource_group.networking-rg.location
   resource_group_name = azurerm_resource_group.networking-rg.name
-  address_space       = ["172.16.20.0/22"]
+  address_space       = var.vnet_address_space
 
   enable_telemetry = false
 
@@ -21,7 +21,11 @@ module "avm-res-network-virtualnetwork" {
   subnets = {
     private = {
       name           = "${var.environment}-private-${random_string.networking-identifier.result}"
-      address_prefix = "172.16.21.0/24"
+      address_prefix = cidrsubnet(var.vnet_address_space[0], 2, 0)
+    }
+    database = {
+      name           = "${var.environment}-database-${random_string.networking-identifier.result}"
+      address_prefix = cidrsubnet(var.vnet_address_space[0], 2, 1)
     }
   }
 
