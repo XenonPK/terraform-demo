@@ -7,4 +7,11 @@ module "avm-res-network-virtualnetwork" {
   location            = azurerm_resource_group.networking-rg.location
   resource_group_name = azurerm_resource_group.networking-rg.name
   address_space       = ["172.16.20.0/22"]
+
+  enable_telemetry = false
+
+  tags = {
+    environment = var.environment
+    terraform = true
+  }
 }
