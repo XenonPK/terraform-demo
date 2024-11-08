@@ -18,6 +18,13 @@ module "avm-res-network-virtualnetwork" {
     enforcement = "AllowUnencrypted"
   }
 
+  subnets = {
+    private = {
+      name           = "${var.environment}-private-${random_string.networking-identifier.result}"
+      address_prefix = "172.16.21.0/24"
+    }
+  }
+
   tags = {
     environment = var.environment
     terraform   = true
