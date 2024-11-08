@@ -10,8 +10,16 @@ module "avm-res-network-virtualnetwork" {
 
   enable_telemetry = false
 
+  encryption = {
+    enabled = true
+
+    # We allow unencrypted traffic for now because this azure feature is still experimental
+    # Later on, we want to change this to DropUnencrypted
+    enforcement = "AllowUnencrypted"
+  }
+
   tags = {
     environment = var.environment
-    terraform = true
+    terraform   = true
   }
 }
